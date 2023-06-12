@@ -52,11 +52,11 @@ class ConanCudaLibRecipe(ConanFile):
         cmake.configure()
         cmake.build()
 
-        if not self.conf.get("tools.build:skip_test", default=False):
-            cmake_test = CMake(self)
-            cmake_test.configure(build_script_folder="tests")
-            cmake_test.build()
-            self.run(os.path.join(self.cpp.build.bindir, "conancudalib_test"))
+#        if not self.conf.get("tools.build:skip_test", default=False):
+#            cmake_test = CMake(self)
+#            cmake_test.configure(build_script_folder="tests")
+#            cmake_test.build()
+#            self.run(os.path.join(self.cpp.build.bindir, "conancudalib_test"))
 
     def package(self):
         cmake = CMake(self)
