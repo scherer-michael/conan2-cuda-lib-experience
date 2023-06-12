@@ -25,7 +25,7 @@ class ConanCudaLibRecipe(ConanFile):
     }
 
     # Sources are located in the same place as this recipe, copy them to the recipe
-    exports_sources = "CMakeLists.txt", "src/*", "include/*"
+    exports_sources = "CMakeLists.txt", "src/*", "include/*", "tests/*"
 
     def requirements(self):
         if self.options.with_tests:
@@ -51,6 +51,12 @@ class ConanCudaLibRecipe(ConanFile):
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
+
+        if not self.conf.get("tools.build:skip_test", default=False):
+            cmake_test = CMake(self)
+            cmake_test.configure(build_script_folder="tests")
+            cmake_test.build()
+            self.run(os.path.join(self.cpp.build.bindir, "conancudalib_test"))
 
     def package(self):
         cmake = CMake(self)
