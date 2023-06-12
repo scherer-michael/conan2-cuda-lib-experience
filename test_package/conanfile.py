@@ -12,6 +12,9 @@ class ConanCudaLibTestPackageConan(ConanFile):
     def requirements(self):
         self.requires(self.tested_reference_str)
 
+    def build_requirements(self):
+        self.tool_requires("cmake/3.26.4")
+
     def build(self):
         cmake = CMake(self)
         cmake.configure()
