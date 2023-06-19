@@ -65,4 +65,5 @@ class ConanCudaLibRecipe(ConanFile):
     def package_info(self):
         suffix = "d" if self.settings.build_type == "Debug" else ""
         self.cpp_info.libs = [f"conancudalib{suffix}"]
+        self.cpp_info.system_libs = ["cudart_static"]
         self.cpp_info.set_property("cmake_target_name", f"conancudalib::conancudalib{suffix}")
